@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>CSS Positioning Exercise</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f1f5f9;
+      overflow-x: hidden;
+      height: 100vh;
+      position: relative;
+    }
+
+    .car-container {
+      position: absolute;
+      top: 160px;
+      left: 150px;
+      width: 600px;
+      height: 380px;
+    }
+
+    .car-top {
+      background-color: #1e293b;
+      height: 140px;
+      width: 280px;
+      position: absolute;
+      top: 0;
+      left: 140px;
+      border-radius: 24px 24px 0 0;
+    }
+
+    .car-body {
+      background-color: #2563eb;
+      height: 180px;
+      width: 520px;
+      position: absolute;
+      top: 120px;
+      left: 20px;
+      border-radius: 24px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .light-1 {
+      background-color: #f59e0b;
+      height: 30px;
+      width: 30px;
+      position: absolute;
+      top: 25px;
+      left: 15px;
+      border-radius: 50%;
+      box-shadow: 0 0 12px #f59e0b;
+    }
+
+    .light-2 {
+      background-color: #f59e0b;
+      height: 30px;
+      width: 30px;
+      position: absolute;
+      top: 75px;
+      left: 15px;
+      border-radius: 50%;
+      box-shadow: 0 0 12px #f59e0b;
+    }
+
+    .chis-mawcha {
+      background-color: #475569;
+      height: 30px;
+      width: 50px;
+      position: absolute;
+      top: 110px;
+      right: -20px;
+      border-radius: 6px;
+    }
+
+    .wheel {
+      height: 100px;
+      width: 100px;
+      background-color: #0f172a;
+      border: 12px solid #94a3b8;
+      border-radius: 50%;
+      position: absolute;
+      bottom: 20px;
+      z-index: 2;
+    }
+
+    .wheel-front {
+      left: 70px;
+    }
+
+    .wheel-back {
+      right: 120px;
+    }
+
+    .road {
+      background-color: #334155;
+      height: 60px;
+      width: 100%;
+      position: absolute;
+      top: 500px;
+      border-top: 6px dashed #cbd5e1;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="car-container">
+    <div class="car-top"></div>
+    <div class="car-body">
+      <div class="light-1"></div>
+      <div class="light-2"></div>
+      <div class="chis-mawcha"></div>
+    </div>
+    <div class="wheel wheel-front"></div>
+    <div class="wheel wheel-back"></div>
+  </div>
+  <div class="road"></div>
+</body>
+
+</html>
