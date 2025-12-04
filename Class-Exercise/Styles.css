@@ -1,0 +1,20 @@
+body {
+ background-image: url('abstract.jpg');
+      background-size: cover;      
+      background-repeat: no-repeat;  
+      background-position: center;  
+      height: 100vh;
+      margin: 0;
+     
+    
+  color: white;   
+
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+p,h1{
+  font-variant: ;
+}
