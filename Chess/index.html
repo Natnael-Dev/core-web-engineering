@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Naty Games" />
+    <meta
+      name="description"
+      content="Chess vs AI - A personal project by Naty Games"
+    />
+    <title>Chess vs AI | Naty Games</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="brand">
+        <span class="brand-icon">♞</span>
+        <span class="brand-name">Naty Games</span>
+      </div>
+      <button
+        class="theme-toggle"
+        id="themeToggle"
+        aria-label="Toggle dark mode"
+        title="Toggle dark mode"
+      >
+        <span class="theme-icon">☀</span>
+      </button>
+    </header>
+
+    <main class="layout">
+      <aside class="sidebar sidebar-left">
+        <div class="panel">
+          <h2 class="panel-title">Game</h2>
+          <div class="settings-group">
+            <label class="setting-label" for="diffSelect">Difficulty</label>
+            <select id="diffSelect" class="styled-select">
+              <option value="1">Easy</option>
+              <option value="2">Medium</option>
+              <option value="3" selected>Hard</option>
+            </select>
+          </div>
+          <div class="settings-group">
+            <label class="setting-label" for="colorSelect">Play as</label>
+            <select id="colorSelect" class="styled-select">
+              <option value="w">White</option>
+              <option value="b">Black</option>
+            </select>
+          </div>
+          <div class="btn-group">
+            <button id="newGameBtn" class="btn btn-primary">New Game</button>
+            <button id="undoBtn" class="btn btn-secondary">Undo Move</button>
+            <button id="flipBtn" class="btn btn-secondary">Flip Board</button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2 class="panel-title">Status</h2>
+          <div class="status-block">
+            <div class="player-row" id="playerBlack">
+              <div class="player-dot black"></div>
+              <span class="player-label">AI (Black)</span>
+              <span class="think-dots" id="thinkDots"></span>
+            </div>
+            <div class="eval-bar-wrap">
+              <div class="eval-bar" id="evalBar">
+                <div class="eval-fill" id="evalFill"></div>
+              </div>
+              <span class="eval-score" id="evalScore">0.0</span>
+            </div>
+            <div class="player-row" id="playerWhite">
+              <div class="player-dot white"></div>
+              <span class="player-label">You (White)</span>
+            </div>
+          </div>
+          <div class="captured-section">
+            <div class="captured-row">
+              <span class="captured-label">AI took</span>
+              <div id="capBlack" class="captured-pieces"></div>
+            </div>
+            <div class="captured-row">
+              <span class="captured-label">You took</span>
+              <div id="capWhite" class="captured-pieces"></div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <section class="board-section">
+        <div id="gameMessage" class="game-message hidden"></div>
+        <div class="board-outer" id="boardOuter">
+          <div class="rank-labels" id="rankLabels"></div>
+          <div class="file-labels" id="fileLabels"></div>
+          <div class="chess-board" id="chessBoard"></div>
+        </div>
+      </section>
+
+      <aside class="sidebar sidebar-right">
+        <div class="panel panel-history">
+          <h2 class="panel-title">Move History</h2>
+          <div class="history-scroll" id="historyList">
+            <p class="history-empty">No moves yet</p>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="site-footer">
+      <span>Built by <strong>Naty Games</strong></span>
+      <span class="footer-sep">|</span>
+      <span>Minimax AI with alpha-beta pruning</span>
+    </footer>
+
+    <script src="index.js"></script>
+  </body>
+</html>
