@@ -1,0 +1,137 @@
+:root {
+  --bg-canvas: #0e1217;
+  --bg-calculator: #141820;
+  --bg-display: #10141c;
+  --bg-key: #1c2331;
+  --bg-key-hover: #252e40;
+  
+  --border-frame: #283244;
+  --border-subtle: #1e2636;
+  
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  
+  --color-operator: #1d4ed8;
+  --color-operator-hover: #1e40af;
+  --color-clear: #b91c1c;
+  --color-clear-hover: #991b1b;
+  --color-equals: #047857;
+  --color-equals-hover: #065f46;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-canvas);
+  color: var(--text-main);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+h1 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.Calculator {
+  background: var(--bg-calculator);
+  border: 1px solid var(--border-frame);
+  border-radius: 14px;
+  padding: 20px;
+  width: 320px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+}
+
+.display {
+  width: 100%;
+  height: 64px;
+  background: var(--bg-display);
+  border: 1px solid var(--border-frame);
+  border-radius: 8px;
+  color: var(--text-main);
+  font-size: 2rem;
+  font-weight: 600;
+  font-family: 'JetBrains Mono', monospace, sans-serif;
+  text-align: right;
+  padding: 0 16px;
+  margin-bottom: 16px;
+  outline: none;
+}
+
+.keys {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+button {
+  height: 54px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--text-main);
+  background: var(--bg-key);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.12s ease, border-color 0.12s ease;
+}
+
+button:hover {
+  background: var(--bg-key-hover);
+  border-color: var(--border-frame);
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+/* Operator Buttons: WCAG AA Compliant contrast >= 5.8:1 */
+button.operator {
+  background: var(--color-operator);
+  border-color: var(--color-operator);
+  color: #ffffff;
+}
+
+button.operator:hover {
+  background: var(--color-operator-hover);
+  border-color: var(--color-operator-hover);
+}
+
+/* Clear Button: WCAG AA Compliant contrast >= 5.7:1 */
+button.clear {
+  background: var(--color-clear);
+  border-color: var(--color-clear);
+  color: #ffffff;
+}
+
+button.clear:hover {
+  background: var(--color-clear-hover);
+  border-color: var(--color-clear-hover);
+}
+
+/* Equals Button: WCAG AA Compliant contrast >= 4.8:1 */
+button.equals {
+  background: var(--color-equals);
+  border-color: var(--color-equals);
+  color: #ffffff;
+}
+
+button.equals:hover {
+  background: var(--color-equals-hover);
+  border-color: var(--color-equals-hover);
+}
