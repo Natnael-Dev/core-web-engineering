@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskMaster Kanban</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Navigation Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="9" y1="3" x2="9" y2="21"></line>
+            <line x1="15" y1="3" x2="15" y2="21"></line>
+          </svg>
+        </div>
+        <div>
+          <h1>TaskMaster Kanban</h1>
+          <p class="brand-sub">Native HTML5 Drag & Drop &bull; Local Storage</p>
+        </div>
+      </div>
+
+      <!-- Global Controls -->
+      <div class="header-actions">
+        <div class="search-box">
+          <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="searchInput" placeholder="Filter tasks by keyword or tag..." autocomplete="off">
+          <button id="clearSearch" class="btn-icon" aria-label="Clear search" style="display: none;">&times;</button>
+        </div>
+
+        <select id="priorityFilter" class="filter-select" aria-label="Filter by priority">
+          <option value="all">All Priorities</option>
+          <option value="urgent">Urgent</option>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+
+        <button id="openNewTaskBtn" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          New Task
+        </button>
+
+        <div class="dropdown">
+          <button id="moreActionsBtn" class="btn btn-secondary" aria-label="More actions">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="1"></circle>
+              <circle cx="12" cy="5" r="1"></circle>
+              <circle cx="12" cy="19" r="1"></circle>
+            </svg>
+          </button>
+          <div id="actionsMenu" class="dropdown-menu">
+            <button id="exportBtn" class="dropdown-item">Export Board (JSON)</button>
+            <label for="importInput" class="dropdown-item" style="cursor: pointer;">Import Board (JSON)</label>
+            <input type="file" id="importInput" accept=".json" style="display: none;">
+            <hr class="dropdown-divider">
+            <button id="resetSampleBtn" class="dropdown-item text-danger">Reset to Sample Tasks</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Board Lanes Grid -->
+    <main class="kanban-board">
+      <!-- Column: Backlog -->
+      <section class="column" data-column-id="backlog">
+        <div class="column-header">
+          <div class="column-title">
+            <span class="col-indicator col-backlog"></span>
+            <h2>Backlog</h2>
+          </div>
+          <span class="column-count" id="count-backlog">0</span>
+        </div>
+        <div class="task-list" id="list-backlog"></div>
+      </section>
+
+      <!-- Column: In Progress -->
+      <section class="column" data-column-id="in-progress">
+        <div class="column-header">
+          <div class="column-title">
+            <span class="col-indicator col-progress"></span>
+            <h2>In Progress</h2>
+          </div>
+          <span class="column-count" id="count-in-progress">0</span>
+        </div>
+        <div class="task-list" id="list-in-progress"></div>
+      </section>
+
+      <!-- Column: Review -->
+      <section class="column" data-column-id="review">
+        <div class="column-header">
+          <div class="column-title">
+            <span class="col-indicator col-review"></span>
+            <h2>In Review</h2>
+          </div>
+          <span class="column-count" id="count-review">0</span>
+        </div>
+        <div class="task-list" id="list-review"></div>
+      </section>
+
+      <!-- Column: Completed -->
+      <section class="column" data-column-id="done">
+        <div class="column-header">
+          <div class="column-title">
+            <span class="col-indicator col-done"></span>
+            <h2>Completed</h2>
+          </div>
+          <span class="column-count" id="count-done">0</span>
+        </div>
+        <div class="task-list" id="list-done"></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Task Modal (Create & Edit) -->
+  <dialog id="taskModal" class="modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modalTitle">Create New Task</h3>
+        <button id="closeModalBtn" class="btn-icon" aria-label="Close modal">&times;</button>
+      </div>
+      <form id="taskForm" class="modal-body">
+        <input type="hidden" id="taskId">
+
+        <div class="form-group">
+          <label for="taskTitleInput">Task Title <span class="required">*</span></label>
+          <input type="text" id="taskTitleInput" placeholder="e.g., Architect PostgreSQL User Schema" required maxlength="120">
+        </div>
+
+        <div class="form-group">
+          <label for="taskDescInput">Description</label>
+          <textarea id="taskDescInput" rows="3" placeholder="Provide context, acceptance criteria, or engineering notes..."></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="taskPriorityInput">Priority</label>
+            <select id="taskPriorityInput">
+              <option value="low">Low Priority</option>
+              <option value="medium" selected>Medium Priority</option>
+              <option value="high">High Priority</option>
+              <option value="urgent">Urgent</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="taskColumnInput">Column</label>
+            <select id="taskColumnInput">
+              <option value="backlog">Backlog</option>
+              <option value="in-progress">In Progress</option>
+              <option value="review">In Review</option>
+              <option value="done">Completed</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="taskDueDateInput">Due Date</label>
+            <input type="date" id="taskDueDateInput">
+          </div>
+
+          <div class="form-group">
+            <label for="taskTagsInput">Tags (comma separated)</label>
+            <input type="text" id="taskTagsInput" placeholder="Database, Backend, Security">
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" id="cancelModalBtn" class="btn btn-secondary">Cancel</button>
+          <button type="submit" id="saveTaskBtn" class="btn btn-primary">Save Task</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
