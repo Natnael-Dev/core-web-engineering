@@ -1,6 +1,6 @@
-# fullstack-craft
+# core-web-engineering
 
-> Building the web from foundations to full-stack: 30+ practical modules spanning semantic HTML, modern CSS layouts, DOM scripting, node runtimes, and standalone vanilla web engines.
+> Curriculum and lab projects built while mastering modern front-end, DOM engineering, Node.js, and design systems.
 
 ## 🚀 Overview
 
@@ -49,8 +49,8 @@ This repository documents an intensive, end-to-end full-stack web engineering jo
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/Natnael-Dev/fullstack-craft.git
-   cd fullstack-craft
+   git clone https://github.com/Natnael-Dev/core-web-engineering.git
+   cd core-web-engineering
    ```
 
 2. **Start the central Development Hub**:
